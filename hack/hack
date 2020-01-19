@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -x -e -u -o pipefail
+
+_main() {
+	cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -H. -Bbuild
+	ninja -C build
+	build/src/yo
+}
+
+_main "$@"
