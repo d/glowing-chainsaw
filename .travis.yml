@@ -1,8 +1,32 @@
 language: cpp
 cache: ccache
+
+# We require CMake 3.10 but on Travis ARM xenial is too old (3.5)
+dist: bionic
+
+os:
+  - osx
+  - linux
+osx_image: xcode11.3
+
+arch:
+  - arm64
+  - amd64
+compiler:
+  - clang
+  - gcc
+
+jobs:
+  exclude:
+    - os: osx
+      compiler: gcc
+
 addons:
   apt:
     packages:
       - ninja-build
+  homebrew:
+    packages:
+      - ninja
 script:
   - hack/hack
