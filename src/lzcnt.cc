@@ -1,3 +1,5 @@
+#include <x86intrin.h>
+
 #include "lzcnt.h"
 
 static bool go = lzcnt_available();
