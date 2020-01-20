@@ -12,3 +12,6 @@ if(USE_CCACHE)
 endif()
 
 add_subdirectory(src)
+
+add_subdirectory(vendor/googletest)
+add_subdirectory(vendor/benchmark)
