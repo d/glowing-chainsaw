@@ -28,5 +28,6 @@ addons:
   homebrew:
     packages:
       - ninja
+      - ccache
 script:
   - hack/hack
