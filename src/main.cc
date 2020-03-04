@@ -17,7 +17,7 @@ static void BM_slow(benchmark::State& state) {
 
 static void BM_static_var(benchmark::State& state) {
   for (auto _ : state) {
-    (lzcnt_static_var(8));
+    lzcnt_static_var(8);
   }
 }
 
@@ -30,7 +30,7 @@ static void BM_fast(benchmark::State& state) {
 
 BENCHMARK(BM_pfunc);
 BENCHMARK(BM_static_var);
-BENCHMARK(BM_slow)->Range(0, 64);
-BENCHMARK(BM_fast)->Range(0, 64);
+BENCHMARK(BM_slow)->Arg(0)->Range(1, 64);
+BENCHMARK(BM_fast)->Arg(0)->Range(1, 64);
 
 BENCHMARK_MAIN();
