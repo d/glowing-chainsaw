@@ -11,7 +11,7 @@ __attribute__((target("no-lzcnt"))) int lzcnt_slow(uint64_t word) {
   return __builtin_clzll(word);
 }
 __attribute__((target("lzcnt"))) int lzcnt_fast(uint64_t word) {
-  return _lzcnt_u64(word);
+  return __builtin_clzll(word);
 }
 
 int lzcnt_static_var(uint64_t word) {
