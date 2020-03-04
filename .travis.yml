@@ -10,7 +10,6 @@ os:
 osx_image: xcode11.3
 
 arch:
-  - arm64
   - amd64
 compiler:
   - clang
