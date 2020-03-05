@@ -15,11 +15,6 @@ compiler:
   - clang
   - gcc
 
-jobs:
-  exclude:
-    - os: osx
-      compiler: gcc
-
 addons:
   apt:
     packages:
