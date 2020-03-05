@@ -9,7 +9,7 @@ _main() {
 build_for_config() {
 	local build_dir=$1
 	local -a cmake_config=("${@:1}")
-	env LDFLAGS=-fuse-ld=lld cmake -GNinja "${cmake_config[@]}" -H. -B"${build_dir}"
+	cmake -GNinja "${cmake_config[@]}" -H. -B"${build_dir}"
 	ninja -C "${build_dir}"
 	"${build_dir}"/src/yo
 }
