@@ -3,21 +3,16 @@
 #include "lzcnt.h"
 
 static void BM_pfunc(benchmark::State& state) {
+  auto word = state.range(0);
   for (auto _ : state) {
-    lzcnt_pfunc(8);
+    lzcnt_pfunc(word);
   }
 }
 
 static void BM_slow(benchmark::State& state) {
   auto word = state.range(0);
   for (auto _ : state) {
-    lzcnt_slow(word);
-  }
-}
-
-static void BM_static_var(benchmark::State& state) {
-  for (auto _ : state) {
-    lzcnt_static_var(8);
+    benchmark::DoNotOptimize(lzcnt_slow(word));
   }
 }
 
@@ -28,8 +23,7 @@ static void BM_fast(benchmark::State& state) {
   }
 }
 
-BENCHMARK(BM_pfunc);
-BENCHMARK(BM_static_var);
+BENCHMARK(BM_pfunc)->Arg(0)->Range(1, 64);
 BENCHMARK(BM_slow)->Arg(0)->Range(1, 64);
 BENCHMARK(BM_fast)->Arg(0)->Range(1, 64);
 

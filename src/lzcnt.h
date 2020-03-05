@@ -2,12 +2,7 @@
 #define LZCNT_H
 
 #include <cpuid.h>
-#include <stdbool.h>
-#include <stdint.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include <cstdint>
 
 static inline bool lzcnt_available() {
   uint32_t exx[4] = {0, 0, 0, 0};
@@ -18,12 +13,13 @@ static inline bool lzcnt_available() {
 }
 
 extern int (*lzcnt_pfunc)(uint64_t word);
-extern int lzcnt_static_var(uint64_t word);
-extern int lzcnt_slow(uint64_t word);
-extern int lzcnt_fast(uint64_t word);
 
-#ifdef __cplusplus
+__attribute__((target("no-lzcnt"))) inline int lzcnt_slow(uint64_t word) {
+  if (word == 0)
+    return 8 * sizeof(word);
+  return __builtin_clzll(word);
 }
-#endif
+
+int lzcnt_fast(uint64_t word);
 
 #endif
