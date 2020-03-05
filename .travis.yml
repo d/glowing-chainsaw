@@ -28,5 +28,7 @@ addons:
     packages:
       - ninja
       - ccache
+    update:
+      true
 script:
   - hack/hack
