@@ -19,7 +19,7 @@ static void BM_slow(benchmark::State& state) {
 static void BM_fast(benchmark::State& state) {
   auto word = state.range(0);
   for (auto _ : state) {
-    lzcnt_fast(word);
+    benchmark::DoNotOptimize(lzcnt_fast(word));
   }
 }
 
