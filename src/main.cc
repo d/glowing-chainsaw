@@ -10,8 +10,8 @@ static void BM_pfunc(benchmark::State& state) {
 }
 
 static void BM_inlined_slow(benchmark::State& state) {
+  volatile auto word = state.range(0);
   for (auto _ : state) {
-    auto word = state.range(0);
     benchmark::DoNotOptimize(lzcnt_slow(word));
   }
 }
@@ -25,8 +25,8 @@ static void BM_fast(benchmark::State& state) {
 
 __attribute__((target("lzcnt"))) static void BM_inlined_fast(
     benchmark::State& state) {
+  volatile auto word = state.range(0);
   for (auto _ : state) {
-    auto word = state.range(0);
     benchmark::DoNotOptimize(lzcnt_fast(word));
   }
 }
