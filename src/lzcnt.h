@@ -20,6 +20,8 @@ __attribute__((target("no-lzcnt"))) inline int lzcnt_slow(uint64_t word) {
   return __builtin_clzll(word);
 }
 
-int lzcnt_fast(uint64_t word);
+__attribute__((target("lzcnt"))) inline int lzcnt_fast(uint64_t word) {
+  return __builtin_clzll(word);
+}
 
 #endif
