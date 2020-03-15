@@ -25,5 +25,13 @@ addons:
       - ccache
     update:
       true
+
+matrix:
+  include:
+    - os: osx
+      compiler: gcc
+      env:
+        - MATRIX_EVAL="CC=gcc-9 && CXX=g++-9"
+
 script:
   - hack/hack
