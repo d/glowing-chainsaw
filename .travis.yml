@@ -10,16 +10,10 @@ os:
 osx_image: xcode11.3
 
 arch:
-  - arm64
   - amd64
 compiler:
   - clang
   - gcc
-
-jobs:
-  exclude:
-    - os: osx
-      compiler: gcc
 
 addons:
   apt:
@@ -29,5 +23,7 @@ addons:
     packages:
       - ninja
       - ccache
+    update:
+      true
 script:
   - hack/hack

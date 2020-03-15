@@ -3,9 +3,15 @@
 set -x -e -u -o pipefail
 
 _main() {
-	cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -H. -Bbuild
-	ninja -C build
-	build/src/yo
+	build_for_config build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBENCHMARK_ENABLE_TESTING=OFF
+}
+
+build_for_config() {
+	local build_dir=$1
+	local -a cmake_config=("${@:1}")
+	cmake -GNinja "${cmake_config[@]}" -H. -B"${build_dir}"
+	ninja -C "${build_dir}"
+	"${build_dir}"/src/yo
 }
 
 _main "$@"
