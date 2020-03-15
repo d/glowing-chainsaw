@@ -3,7 +3,7 @@
 set -x -e -u -o pipefail
 
 _main() {
-	build_for_config build -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBENCHMARK_ENABLE_TESTING=OFF
+	build_for_config build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBENCHMARK_ENABLE_TESTING=OFF
 }
 
 build_for_config() {
