@@ -22,8 +22,13 @@ __attribute__((target("lzcnt"))) inline int lzcnt_fast(uint64_t word) {
   return __builtin_clzll(word);
 }
 
-
 static bool go = lzcnt_available();
+
+__attribute__((target("no-lzcnt"))) static int lzcnt_static_var(uint64_t word) {
+  if (go)
+    return lzcnt_fast(word);
+  return lzcnt_slow(word);
+}
 
 static int lzcnt_choose(uint64_t word) {
   if (lzcnt_available())
@@ -31,6 +36,13 @@ static int lzcnt_choose(uint64_t word) {
   else
     lzcnt_pfunc = lzcnt_slow;
   return lzcnt_pfunc(word);
+}
+
+static void BM_static_var(benchmark::State& state) {
+  auto word = state.range(0);
+  for (auto _ : state) {
+    benchmark::DoNotOptimize(lzcnt_static_var(word));
+  }
 }
 
 int (*lzcnt_pfunc)(uint64_t word) = lzcnt_choose;
@@ -63,6 +75,7 @@ __attribute__((target("lzcnt"))) static void BM_inlined_fast(
   }
 }
 
+BENCHMARK(BM_static_var)->Arg(0)->Range(1, 64);
 BENCHMARK(BM_pfunc)->Arg(0)->Range(1, 64);
 BENCHMARK(BM_inlined_slow)->Arg(0)->Range(1, 64);
 BENCHMARK(BM_fast)->Arg(0)->Range(1, 64);
