@@ -10,6 +10,7 @@ osx_image: xcode11.3
 
 arch:
   - amd64
+  - arm64
 compiler:
   - clang
   - gcc
@@ -26,6 +27,7 @@ addons:
       true
 
 matrix:
+  # macOS is not listed on top because it's not as easy to use GCC
   include:
     - os: osx
       compiler: clang
